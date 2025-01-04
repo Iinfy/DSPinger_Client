@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 public class App {
     public static ExecutorService EService = Executors.newFixedThreadPool(4);
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("212.192.248.73", 8081);
+        Socket socket = new Socket("127.0.0.1", 8081);
         new Thread(new reader(socket)).start();
         new Thread(new writer(socket)).start();
         System.out.println("Successfully connected");
