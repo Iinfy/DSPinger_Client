@@ -36,6 +36,8 @@ public class mainGui {
 
         ButtonsListener bList = new ButtonsListener();
 
+        JLabel versionLabel = new JLabel("Release v1.0");
+
 
     public void start(){
         Frame.setSize(400,270);
@@ -53,6 +55,7 @@ public class mainGui {
         mainPanel.add(authStatusPanel);
         mainPanel.add(usernameToPingField);
         mainPanel.add(pingButton);
+        mainPanel.add(versionLabel);
           
 
 
@@ -91,6 +94,8 @@ public class mainGui {
         pingButton.addActionListener(bList);
         pingButton.setActionCommand("PING");
 
+        versionLabel.setBounds(310,212,100,20);
+        versionLabel.setForeground(Color.white);
 
         
 
@@ -127,6 +132,5 @@ public class mainGui {
     public String getPingUsername(){
         return usernameToPingField.getText();
     }
-
 
 }

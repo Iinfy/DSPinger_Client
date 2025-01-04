@@ -20,6 +20,12 @@ public class ButtonsListener implements ActionListener{
         }else if(command.equals("TryAuth")){
             if (!App.mGui.getAuthUsername().contains(" ") || App.mGui.getAuthUsername().length()!=0) {
                 App.tryAuth(App.getSocket(), App.mGui.getAuthUsername());
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e1) {
+                    System.out.println(e1);
+                }
+                App.sendMessage(App.getSocket(), "GETONLINE");
             } else{
                 System.out.println("You entered spaces");
             }
