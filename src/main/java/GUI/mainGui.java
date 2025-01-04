@@ -8,10 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 import GUI.ActionListeners.ButtonsListener;
-import dspinger.App;
-import dspinger.BackMessage;
+
 
 public class mainGui {
         JFrame Frame = new JFrame("Pinger client");
@@ -22,6 +22,11 @@ public class mainGui {
         JLabel wordUsersonline = new JLabel("Users online");
         JPanel underUseronlineword = new JPanel();
         JButton refreshOnline = new JButton("Refresh");
+
+        JTextField nicknameAuthField = new JTextField();
+        JButton authButton = new JButton(">");
+        JPanel authStatusPanel = new JPanel();
+        JLabel authStatusLabel = new JLabel("Not authorized");
         
         
         
@@ -41,6 +46,9 @@ public class mainGui {
         mainPanel.setBackground(Color.BLACK);
         mainPanel.add(scrollPane);
         mainPanel.add(underUseronlineword);
+        mainPanel.add(nicknameAuthField);
+        mainPanel.add(authButton);
+        mainPanel.add(authStatusPanel);
           
 
 
@@ -59,6 +67,16 @@ public class mainGui {
         refreshOnline.setBounds(75,0,125,30);
         refreshOnline.addActionListener(bList);
         refreshOnline.setActionCommand("Refresh online");
+
+        authStatusPanel.setBounds(200,0,200,30);
+        authStatusPanel.setBackground(Color.red);
+        authStatusPanel.setLayout(null);
+        authStatusPanel.add(authStatusLabel);
+        authStatusLabel.setBounds(5,0,100,30);
+        nicknameAuthField.setBounds(200,30,150,30);
+        authButton.setBounds(350,30,50,30);
+        authButton.addActionListener(bList);
+        authButton.setActionCommand("TryAuth");
         
 
         
@@ -74,6 +92,21 @@ public class mainGui {
             usersOnlinePanel.add(label);
             usersOnlinePanel.revalidate();
         }
+    }
+
+    public String getAuthUsername(){
+        return nicknameAuthField.getText();
+    }
+
+    public void setStaticAuthorizeField(){
+        nicknameAuthField.setEditable(false);
+    }
+
+    public void setAuthorized(){
+        authStatusPanel.setBackground(Color.green);
+        authStatusLabel.setBounds(5,0,100,30);
+        authStatusLabel.setText("Authorized");
+        
     }
 
 

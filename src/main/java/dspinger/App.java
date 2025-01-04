@@ -35,6 +35,12 @@ public class App {
         
     }
 
+    public static void tryAuth(Socket socket, String username){
+        if (!isAuthorized) {
+            EService.execute(new BackMessage(socket, username));
+        }
+    }
+
     public static Socket getSocket(){
         return socket;
     }
@@ -96,6 +102,8 @@ class reader implements Runnable{
                 }
                 if (str.equals("You have successfully registered")) {
                     App.isAuthorized = true;
+                    App.mGui.setStaticAuthorizeField();
+                    App.mGui.setAuthorized();
                 }
 
             }

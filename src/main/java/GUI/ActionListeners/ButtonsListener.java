@@ -17,6 +17,14 @@ public class ButtonsListener implements ActionListener{
                 System.out.println("You are not authorized!");
             }
             
+        }else if(command.equals("TryAuth")){
+            if (!App.mGui.getAuthUsername().contains(" ") || App.mGui.getAuthUsername().length()!=0) {
+                App.tryAuth(App.getSocket(), App.mGui.getAuthUsername());
+            } else{
+                System.out.println("You entered spaces");
+            }
+            
+            
         }
     }
     
