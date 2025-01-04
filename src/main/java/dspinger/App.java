@@ -7,13 +7,17 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import GUI.mainGui;
+
 public class App {
     public static ExecutorService EService = Executors.newFixedThreadPool(4);
     public static void main(String[] args) throws IOException {
+        mainGui mGui = new mainGui();
         Socket socket = new Socket("127.0.0.1", 8081);
         new Thread(new reader(socket)).start();
         new Thread(new writer(socket)).start();
         System.out.println("Successfully connected");
+        
 
 
 
@@ -64,6 +68,14 @@ class reader implements Runnable{
                 System.out.println(str);
                 if (str.equals("sound")) {
                     App.EService.execute(new soundplay("src/main/resources/sounds/bell.wav"));
+                }
+                if (str.contains("OU/:")) {
+                    System.out.println(str);
+                    str = str.replace("[", "");
+                    str = str.replace("]", "");
+                    str = str.replace("OU/:","");
+                    str = str.replace(" ","");
+                    System.out.println(str);
                 }
 
             }
