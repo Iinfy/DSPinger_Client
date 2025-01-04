@@ -11,16 +11,32 @@ import GUI.mainGui;
 
 public class App {
     public static ExecutorService EService = Executors.newFixedThreadPool(4);
+    public static Socket socket;
+    public static mainGui mGui;
+    public static boolean isAuthorized = false;
     public static void main(String[] args) throws IOException {
-        mainGui mGui = new mainGui();
-        Socket socket = new Socket("127.0.0.1", 8081);
+        
+        socket = new Socket("127.0.0.1", 8081);
         new Thread(new reader(socket)).start();
         new Thread(new writer(socket)).start();
+        mGui = new mainGui();
+        mGui.start();
         System.out.println("Successfully connected");
         
 
 
 
+    }
+
+    public static void sendMessage(Socket socket, String message){
+        if (isAuthorized) {
+            EService.execute(new BackMessage(socket, message));
+        }
+        
+    }
+
+    public static Socket getSocket(){
+        return socket;
     }
 }
 
@@ -76,6 +92,10 @@ class reader implements Runnable{
                     str = str.replace("OU/:","");
                     str = str.replace(" ","");
                     System.out.println(str);
+                    App.mGui.showOnlineUsers(str);
+                }
+                if (str.equals("You have successfully registered")) {
+                    App.isAuthorized = true;
                 }
 
             }
@@ -86,3 +106,4 @@ class reader implements Runnable{
 
     }
 }
+

@@ -3,23 +3,31 @@ package GUI;
 import java.awt.Color;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import GUI.ActionListeners.ButtonsListener;
+import dspinger.App;
+import dspinger.BackMessage;
 
 public class mainGui {
         JFrame Frame = new JFrame("Pinger client");
         JPanel mainPanel = new JPanel();
         JPanel usersOnlinePanel = new JPanel();
         JScrollPane scrollPane = new JScrollPane(usersOnlinePanel);
-
+        
         JLabel wordUsersonline = new JLabel("Users online");
         JPanel underUseronlineword = new JPanel();
+        JButton refreshOnline = new JButton("Refresh");
         
         
         
         String usersOnline;
+
+        ButtonsListener bList = new ButtonsListener();
 
 
     public void start(){
@@ -36,15 +44,21 @@ public class mainGui {
           
 
 
-        scrollPane.setBounds(0,30,150,200);
+        scrollPane.setBounds(0,30,200,200);
         usersOnlinePanel.setLayout(new BoxLayout(usersOnlinePanel, BoxLayout.Y_AXIS));
 
-        underUseronlineword.setBounds(0,0,150,30);
+        underUseronlineword.setBounds(0,0,200,30);
         underUseronlineword.setBackground(Color.white);
         underUseronlineword.setLayout(null);
         underUseronlineword.add(wordUsersonline);  
+        underUseronlineword.add(refreshOnline);
         wordUsersonline.setBounds(2,0,100,30);
         wordUsersonline.setForeground(Color.black);
+
+
+        refreshOnline.setBounds(75,0,125,30);
+        refreshOnline.addActionListener(bList);
+        refreshOnline.setActionCommand("Refresh online");
         
 
         
@@ -52,18 +66,15 @@ public class mainGui {
     }
 
     public void showOnlineUsers(String users){
+        usersOnlinePanel.removeAll();
         String[] usersOnline = users.split(",");
+        System.out.println(usersOnline.toString());
         for(String user : usersOnline){
-            JLabel label = new JLabel(user);
+            JLabel label = new JLabel(" " + user);
             usersOnlinePanel.add(label);
+            usersOnlinePanel.revalidate();
         }
     }
 
 
-    public static void main(String[] args) {
-        mainGui mg = new mainGui();
-        mg.start();
-
-
-    }
 }
