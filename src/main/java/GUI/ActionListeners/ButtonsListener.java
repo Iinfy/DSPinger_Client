@@ -25,7 +25,11 @@ public class ButtonsListener implements ActionListener{
             }
             
             
+        }else if(command.equals("PING")){
+            App.sendMessage(App.getSocket(), "PING " + App.mGui.getPingUsername());
+            
         }
+
     }
     
 }

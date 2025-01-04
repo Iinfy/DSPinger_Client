@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -27,16 +28,17 @@ public class mainGui {
         JButton authButton = new JButton(">");
         JPanel authStatusPanel = new JPanel();
         JLabel authStatusLabel = new JLabel("Not authorized");
-        
-        
-        
-        String usersOnline;
+
+        JTextField usernameToPingField = new JTextField();
+        JButton pingButton = new JButton("Ping");
+
+        String[] usersOnline;
 
         ButtonsListener bList = new ButtonsListener();
 
 
     public void start(){
-        Frame.setSize(400,400);
+        Frame.setSize(400,270);
         Frame.setVisible(true);
         Frame.setResizable(false);
         Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,6 +51,8 @@ public class mainGui {
         mainPanel.add(nicknameAuthField);
         mainPanel.add(authButton);
         mainPanel.add(authStatusPanel);
+        mainPanel.add(usernameToPingField);
+        mainPanel.add(pingButton);
           
 
 
@@ -56,12 +60,12 @@ public class mainGui {
         usersOnlinePanel.setLayout(new BoxLayout(usersOnlinePanel, BoxLayout.Y_AXIS));
 
         underUseronlineword.setBounds(0,0,200,30);
-        underUseronlineword.setBackground(Color.white);
+        underUseronlineword.setBackground(Color.BLACK);
         underUseronlineword.setLayout(null);
         underUseronlineword.add(wordUsersonline);  
         underUseronlineword.add(refreshOnline);
-        wordUsersonline.setBounds(2,0,100,30);
-        wordUsersonline.setForeground(Color.black);
+        wordUsersonline.setBounds(1,0,100,30);
+        wordUsersonline.setForeground(Color.WHITE);
 
 
         refreshOnline.setBounds(75,0,125,30);
@@ -77,6 +81,17 @@ public class mainGui {
         authButton.setBounds(350,30,50,30);
         authButton.addActionListener(bList);
         authButton.setActionCommand("TryAuth");
+
+        usernameToPingField.setBounds(200,100,200,50);
+        usernameToPingField.setFont(new Font("Arial",Font.BOLD,24));
+        pingButton.setBounds(200,150,185,50);
+        pingButton.setBackground(Color.GRAY);
+        pingButton.setForeground(Color.white);
+        pingButton.setBorder(null);
+        pingButton.addActionListener(bList);
+        pingButton.setActionCommand("PING");
+
+
         
 
         
@@ -85,7 +100,7 @@ public class mainGui {
 
     public void showOnlineUsers(String users){
         usersOnlinePanel.removeAll();
-        String[] usersOnline = users.split(",");
+        usersOnline = users.split(",");
         System.out.println(usersOnline.toString());
         for(String user : usersOnline){
             JLabel label = new JLabel(" " + user);
@@ -107,6 +122,10 @@ public class mainGui {
         authStatusLabel.setBounds(5,0,100,30);
         authStatusLabel.setText("Authorized");
         
+    }
+
+    public String getPingUsername(){
+        return usernameToPingField.getText();
     }
 
 
