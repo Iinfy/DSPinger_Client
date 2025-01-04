@@ -63,7 +63,7 @@ class reader implements Runnable{
                 String str = scan.nextLine();
                 System.out.println(str);
                 if (str.equals("sound")) {
-                    App.EService.execute(new soundplay("src/main/java/dspinger/sounds/bell.wav"));
+                    App.EService.execute(new soundplay("src/main/resources/sounds/bell.wav"));
                 }
 
             }
