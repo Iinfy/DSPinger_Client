@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 import GUI.mainGui;
 
 public class App {
-    public static ExecutorService EService = Executors.newFixedThreadPool(4);
+    public static ExecutorService EService = Executors.newFixedThreadPool(12);
     public static Socket socket;
     public static mainGui mGui;
     public static boolean isAuthorized = false;
