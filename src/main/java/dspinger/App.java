@@ -15,14 +15,16 @@ public class App {
     public static mainGui mGui;
     public static boolean isAuthorized = false;
     public static void main(String[] args) throws IOException {
-        
+        try{   
         socket = new Socket("127.0.0.1", 8081);
         new Thread(new reader(socket)).start();
         new Thread(new writer(socket)).start();
         mGui = new mainGui();
         mGui.start();
         System.out.println("Successfully connected");
-        
+        } catch(Exception e){
+            System.out.println("Server is unavailable");
+        }
 
 
 
