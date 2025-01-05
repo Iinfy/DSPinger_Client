@@ -14,16 +14,21 @@ public class App {
     public static Socket socket;
     public static mainGui mGui;
     public static boolean isAuthorized = false;
+    public static boolean ServerAvailable;
     public static void main(String[] args) throws IOException {
         try{   
-        socket = new Socket("127.0.0.1", 8081);
-        new Thread(new reader(socket)).start();
-        new Thread(new writer(socket)).start();
-        mGui = new mainGui();
-        mGui.start();
+            mGui = new mainGui();
+            mGui.start();
+            socket = new Socket("127.0.0.1", 8081);
+            new Thread(new reader(socket)).start();
+            new Thread(new writer(socket)).start();
+            ServerAvailable = true;
+        
         System.out.println("Successfully connected");
         } catch(Exception e){
+            ServerAvailable = false;
             System.out.println("Server is unavailable");
+            mGui.showError("Server is unavailable");
         }
 
 
@@ -106,6 +111,10 @@ class reader implements Runnable{
                     App.isAuthorized = true;
                     App.mGui.setStaticAuthorizeField();
                     App.mGui.setAuthorized();
+                }
+                if (str.equals("User does not exist")) {
+                    App.mGui.showError("User does not exist");
+                    
                 }
 
             }

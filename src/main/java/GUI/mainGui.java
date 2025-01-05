@@ -2,9 +2,11 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Frame;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import GUI.ActionListeners.ButtonsListener;
+import dspinger.App;
+import dspinger.soundplay;
 
 
 public class mainGui {
@@ -36,7 +40,7 @@ public class mainGui {
 
         ButtonsListener bList = new ButtonsListener();
 
-        JLabel versionLabel = new JLabel("Release v1.0");
+        JLabel versionLabel = new JLabel("Release v1.1");
 
 
     public void start(){
@@ -45,6 +49,7 @@ public class mainGui {
         Frame.setResizable(false);
         Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Frame.add(mainPanel);
+        Frame.setLocationRelativeTo(null);
 
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.BLACK);
@@ -131,6 +136,23 @@ public class mainGui {
 
     public String getPingUsername(){
         return usernameToPingField.getText();
+    }
+
+    public void showError(String errorText){
+        JDialog d = new JDialog(Frame, "Error");
+            App.EService.execute(new soundplay("src/main/resources/sounds/error.wav"));
+ 
+            // create a label
+            JLabel l = new JLabel(" " + errorText);
+ 
+            d.add(l);
+ 
+            // setsize of dialog
+            d.setSize(200, 100);
+            d.setResizable(false);
+            d.setLocationRelativeTo(null);
+            // set visibility of dialog
+            d.setVisible(true);
     }
 
 }
